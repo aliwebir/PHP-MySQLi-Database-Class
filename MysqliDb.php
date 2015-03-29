@@ -318,6 +318,25 @@ class MysqliDb
     }
 
     /**
+     * A convenient SELECT * function to get multiple (or all) values of one column.
+     *
+     * @param string  $tableName The name of the database table to work with.
+     * @param integer $numRows   The number of rows total to return.
+     *
+     * @return array Contains the returned column from the select query.
+     */
+    public function getValues($tableName, $numRows = null, $column)
+    {
+        $rows = $this->get($tableName, $numRows, $column);
+        $result = array();
+
+        foreach($rows as $row)
+            $result[] = $row[$column];
+
+        return $result;
+    }
+
+    /**
      *
      * @param <string $tableName The name of the table.
      * @param array $insertData Data containing information for inserting into the DB.
